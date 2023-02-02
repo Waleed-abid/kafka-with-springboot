@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class KafkaProducer {
 
@@ -16,9 +18,10 @@ public class KafkaProducer {
 
     public void createUser(String topic, User user) {
         user.setOperation("create");
+        user.setId(UUID.randomUUID().toString());
         try {
             String userJson = objectMapper.writeValueAsString(user);
-            kafkaTemplate.send(topic, userJson);
+            kafkaTemplate.send(topic,userJson);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

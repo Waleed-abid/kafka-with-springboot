@@ -8,24 +8,29 @@ public class UserController {
 
     @Autowired
     private KafkaProducer kafkaProducer;
-
+    private String kafkaTopicData;
     @PostMapping("/user")
-    public void createUser(@RequestBody User user) {
+    public Object createUser(@RequestBody User user) {
         user.setOperation("create");
         kafkaProducer.createUser("user", user);
+        return user;
     }
 
     @PutMapping("/user/{id}")
-    public void updateUser(@PathVariable("id") String id, @RequestBody User user) {
+    public Object updateUser(@PathVariable("id") String id, @RequestBody User user) {
         user.setId(id);
         user.setOperation("update");
         kafkaProducer.updateUser("user", user);
+        return user;
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable("id") String id, @RequestBody User user) {
+    public Object deleteUser(@PathVariable("id") String id, @RequestBody User user) {
         user.setId(id);
+        System.out.println(id);
+
         user.setOperation("delete");
         kafkaProducer.deleteUser("user", user);
+        return user;
     }
 }
