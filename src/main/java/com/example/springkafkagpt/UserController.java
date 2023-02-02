@@ -1,11 +1,12 @@
 package com.example.springkafkagpt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
-
+    private UserService userService;
     @Autowired
     private KafkaProducer kafkaProducer;
     private String kafkaTopicData;
@@ -25,12 +26,8 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public Object deleteUser(@PathVariable("id") String id, @RequestBody User user) {
-        user.setId(id);
-        System.out.println(id);
-
-        user.setOperation("delete");
-        kafkaProducer.deleteUser("user", user);
-        return user;
+    public ResponseEntity<String> deleteUser(@PathVariable("id") String id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
 }

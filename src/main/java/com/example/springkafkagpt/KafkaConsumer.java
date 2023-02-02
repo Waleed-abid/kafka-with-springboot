@@ -20,7 +20,7 @@ public class KafkaConsumer {
                 break;
             case "delete":
                 userRepository.deleteById(user.getId());
-                break;
+                break;      
         }
     }
 }

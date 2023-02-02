@@ -13,12 +13,11 @@ public class User {
     private String address;
     private String operation;
 
-    public User(String id, String name, int age, String address, String operation) {
+    public User(String id, String name, int age, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
-        this.operation = operation;
     }
 
     public String getId() {
