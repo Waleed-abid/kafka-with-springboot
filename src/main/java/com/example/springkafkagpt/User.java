@@ -3,21 +3,21 @@ package com.example.springkafkagpt;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Document(collection = "users")
 public class User {
-
     @Id
     private String id;
     private String name;
-    private int age;
     private String address;
-    private String operation;
+    private int age;
 
-    public User(String id, String name, int age, String address) {
+    public User() {}
+
+    public User(String id, String name, String address, int age) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.address = address;
+        this.age = age;
     }
 
     public String getId() {
@@ -36,14 +36,6 @@ public class User {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -52,22 +44,21 @@ public class User {
         this.address = address;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", age=" + age +
                 ", address='" + address + '\'' +
+                ", age=" + age +
                 '}';
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
     }
 }

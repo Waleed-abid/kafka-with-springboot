@@ -1,4 +1,6 @@
 package com.example.springkafkagpt;
 
-public interface UserRepository extends org.springframework.data.mongodb.repository.MongoRepository<User,String> {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface UserRepository extends MongoRepository<User, String> {
 }
