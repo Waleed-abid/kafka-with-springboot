@@ -1,10 +1,9 @@
 package com.example.springkafkagpt;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -15,8 +14,16 @@ public class UserController {
 
     @PostMapping("/addUser")
     public User addUser(@RequestBody User user) {
-//        kafkaTemplate.send("user-topic", user);
-//        userService.addUser(user);
-        return user;
+        User savedUser = userService.addUser(user);
+        String id = savedUser.getId();
+        kafkaTemplate.send("user-topic", id, user);
+        return savedUser;
     }
+    @DeleteMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return "User deleted successfully";
+    }
+
+
 }

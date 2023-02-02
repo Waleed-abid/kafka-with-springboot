@@ -14,8 +14,18 @@ public class UserService {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public void addUser(User user) {
-        kafkaTemplate.send("user", user);
-        mongoTemplate.save(user);
+    public User addUser(User user) {
+        User savedUser = mongoTemplate.save(user);
+        String id = savedUser.getId();
+        kafkaTemplate.send("user-topic", id, user);
+        return user;
     }
+    public void deleteUser(String id) {
+        User user = mongoTemplate.findById(id, User.class);
+        if (user != null) {
+            kafkaTemplate.send("user-topic", user);
+            mongoTemplate.remove(user);
+        }
+    }
+
 }
