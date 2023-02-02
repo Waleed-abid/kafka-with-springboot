@@ -1,30 +1,35 @@
 package com.example.springkafkagpt;
 
+import jakarta.persistence.GeneratedValue;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 @Document(collection = "users")
 public class User {
+
     @Id
-    private String id;
+    @GeneratedValue
+    private Long id;
     private String name;
     private String address;
     private int age;
 
     public User() {}
 
-    public User(String id, String name, String address, int age) {
+    public User(Long id, String name, String address, int age) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.age = age;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
