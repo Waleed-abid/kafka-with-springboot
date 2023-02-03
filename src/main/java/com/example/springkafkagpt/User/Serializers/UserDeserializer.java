@@ -1,10 +1,11 @@
-package com.example.springkafkagpt;
+package com.example.springkafkagpt.User.Serializers;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.Map;
 
+import com.example.springkafkagpt.User.Model.User;
 import org.apache.kafka.common.errors.SerializationException;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 

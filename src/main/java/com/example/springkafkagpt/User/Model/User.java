@@ -1,4 +1,4 @@
-package com.example.springkafkagpt;
+package com.example.springkafkagpt.User.Model;
 
 import jakarta.persistence.GeneratedValue;
 import org.bson.types.ObjectId;

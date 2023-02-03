@@ -1,12 +1,21 @@
-package com.example.springkafkagpt;
+package com.example.springkafkagpt.User.Controller;
 
+import com.example.springkafkagpt.User.Model.User;
+import com.example.springkafkagpt.User.Service.UserService;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 @RestController
 public class UserController {
+    @Autowired
+    private AdminClient adminClient;
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -24,6 +33,10 @@ public class UserController {
         userService.deleteUser(id);
         return "User deleted successfully";
     }
-
+    @GetMapping("/topics")
+    public List<String> getTopics() throws ExecutionException, InterruptedException {
+        ListTopicsResult result = adminClient.listTopics();
+        return (List<String>) result.names().get();
+    }
 
 }

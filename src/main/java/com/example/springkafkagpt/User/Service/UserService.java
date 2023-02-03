@@ -1,5 +1,6 @@
-package com.example.springkafkagpt;
+package com.example.springkafkagpt.User.Service;
 
+import com.example.springkafkagpt.User.Model.User;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
